@@ -1,6 +1,6 @@
 // +build go1.9
 
-package fastcgo
+package fastercgo
 
 type stack struct {
 	lo uintptr

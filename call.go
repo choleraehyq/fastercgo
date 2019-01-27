@@ -1,4 +1,4 @@
-package fastcgo
+package fastercgo
 
 import "unsafe"
 
@@ -10,3 +10,7 @@ func UnsafeCall0(fn unsafe.Pointer)
 
 // UnsafeCall4 allows calling a C function taking 4 uint64 arguments from Go.
 func UnsafeCall4(fn unsafe.Pointer, arg0, arg1, arg2, arg3 uint64)
+
+func UnsafeCall1(fn unsafe.Pointer, arg0 uint64)
+
+func FasterUnsafeCall1WithRet1(fn unsafe.Pointer, arg0 uint64) uint64

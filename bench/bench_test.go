@@ -4,24 +4,33 @@ import (
 	"testing"
 )
 
-func TestFastCGO(t *testing.T) {
-	hello(42)
+func TestFasterCGO(t *testing.T) {
+	i := helloFaster(41)
+	if i != 42 {
+		t.Fatalf("TestFasterCGO failed, got %d", i)
+	}
 }
 
 func BenchmarkGO(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		noopGo()
+		noopGo(uint64(i))
 	}
 }
 
 func BenchmarkCGO(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		noopCgo()
+		noopCgo(uint64(i))
 	}
 }
 
 func BenchmarkFastCGO(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		noop()
+		noop(uint64(i))
+	}
+}
+
+func BenchmarkFasterCGO(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		noopFaster(uint64(i))
 	}
 }

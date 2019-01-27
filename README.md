@@ -1,4 +1,6 @@
-# fastcgo
+# fastercgo
+
+Faster (but unsafer) Cgo calls remove some extra assembly instruments.
 
 Fast (but unsafe) Cgo calls via an assembly trampoline. Inspired by
 [rustgo](https://blog.filippo.io/rustgo/). The `UnsafeCall*` function
@@ -28,11 +30,15 @@ func Hello(arg uint64) {
 The upshot is significantly faster transitions into C/C++:
 
 ```
-~/go/src/github.com/petermattis/fastcgo master go test -run=- -bench=. ./bench/
+go test -run=- -bench=. ./bench/
 ...
-BenchmarkGO-8        	2000000000	         1.90 ns/op
-BenchmarkCGO-8       	30000000	        60.1  ns/op
-BenchmarkFastCGO-8   	300000000	         4.63 ns/op
+goos: darwin
+goarch: amd64
+pkg: github.com/choleraehyq/fastercgo/bench
+BenchmarkGO-4          	2000000000	         1.28 ns/op
+BenchmarkCGO-4         	30000000	        51.6 ns/op
+BenchmarkFastCGO-4     	300000000	         4.34 ns/op
+BenchmarkFasterCGO-4   	500000000	         3.81 ns/op
 ...
 ```
 
