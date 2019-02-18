@@ -53,11 +53,25 @@ TEXT ·UnsafeCall1(SB), NOSPLIT, $0-0
 // func FasterUnsafeCall1WithRet1(fn unsafe.Pointer, arg0 uint64) uint64
 TEXT ·FasterUnsafeCall1WithRet1(SB), 0, $2048-24
 	MOVQ fn+0(FP), R14
-  MOVQ arg0+8(FP), RARG0 // Load the argument before messing with SP
-  MOVQ SP, BX        // Save SP in a callee-saved registry
-  ADDQ $2048, SP     // Rollback SP to reuse this function's frame
-  ANDQ $~15, SP      // Align the stack to 16-bytes
-  CALL R14
-  MOVQ BX, SP        // Restore SP
-  MOVQ AX, ret+16(FP) // Place the return value on the stack
-  RET
+    MOVQ arg0+8(FP), RARG0 // Load the argument before messing with SP
+    MOVQ SP, BX        // Save SP in a callee-saved registry
+    ADDQ $2048, SP     // Rollback SP to reuse this function's frame
+    ANDQ $~15, SP      // Align the stack to 16-bytes
+    CALL R14
+    MOVQ BX, SP        // Restore SP
+    MOVQ AX, ret+16(FP) // Place the return value on the stack
+    RET
+
+// func FasterUnsafeCall3WithRet1(fn unsafe.Pointer, arg0 uint64, arg1 uint64, arg2 uint64) uint64
+TEXT ·FasterUnsafeCall3WithRet1(SB), 0, $2048-40
+	MOVQ fn+0(FP), R14
+    MOVQ arg0+8(FP), RARG0
+    MOVQ arg1+16(FP), RARG1
+    MOVQ arg2+24(FP), RARG2
+    MOVQ SP, BX        // Save SP in a callee-saved registry
+    ADDQ $2048, SP     // Rollback SP to reuse this function's frame
+    ANDQ $~15, SP      // Align the stack to 16-bytes
+    CALL R14
+    MOVQ BX, SP        // Restore SP
+    MOVQ AX, ret+32(FP) // Place the return value on the stack
+    RET

@@ -9,6 +9,10 @@ func TestFasterCGO(t *testing.T) {
 	if i != 42 {
 		t.Fatalf("TestFasterCGO failed, got %d", i)
 	}
+	i = helloFaster3(1, 2, 4)
+	if i != 7 {
+		t.Fatalf("TestFasterCGO failed, got %d", i)
+	}
 }
 
 func BenchmarkGO(b *testing.B) {

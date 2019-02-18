@@ -14,3 +14,5 @@ func UnsafeCall4(fn unsafe.Pointer, arg0, arg1, arg2, arg3 uint64)
 func UnsafeCall1(fn unsafe.Pointer, arg0 uint64)
 
 func FasterUnsafeCall1WithRet1(fn unsafe.Pointer, arg0 uint64) uint64
+
+func FasterUnsafeCall3WithRet1(fn unsafe.Pointer, arg0 uint64, arg1 uint64, arg2 uint64) uint64
